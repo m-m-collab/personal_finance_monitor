@@ -70,6 +70,30 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.dkanejs.maven.plugins</groupId>
+				<artifactId>docker-compose-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+					<execution>
+						<id>up</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>up</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>down</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>down</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<composeFile>${project.basedir}/docker-compose.yml</composeFile>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
