@@ -1,33 +1,42 @@
 package com.finance.dto;
 
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
  * Entity model of the income table.
  */
 @Entity
+@Table(name = "Income")
 public class Income {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UserId")
+    private AppUser appUser;
+
+    @Column(name = "DateTime", nullable = false)
     private LocalDateTime dateTime;
 
     @Enumerated(EnumType.STRING)
     private Income income;
 
-    private Double incomeValue;
+    @Column(name = "Amount", nullable = false)
+    private BigDecimal amount;
 
     public Income(){};
 
-    public Income(Long id, LocalDateTime dateTime, Income income, Double incomeValue) {
+    public Income(Long id, LocalDateTime dateTime, Income income, BigDecimal amount) {
         this.id = id;
         this.dateTime = dateTime;
         this.income = income;
-        this.incomeValue = incomeValue;
+        this.amount = amount;
     }
 
     public Long getId() {
@@ -42,8 +51,8 @@ public class Income {
         return income;
     }
 
-    public Double getIncomeValue() {
-        return incomeValue;
+    public BigDecimal getIncomeValue() {
+        return amount;
     }
 
     public void setId(Long id) {
@@ -58,8 +67,8 @@ public class Income {
         this.income = income;
     }
 
-    public void setIncomeValue(Double incomeValue) {
-        this.incomeValue = incomeValue;
+    public void setAmountValue(BigDecimal amount) {
+        this.amount = amount;
     }
 
     @Override
@@ -68,7 +77,7 @@ public class Income {
                 "id=" + id +
                 ", dateTime=" + dateTime +
                 ", income=" + income +
-                ", incomeValue=" + incomeValue +
+                ", amount=" + amount +
                 '}';
     }
 }
