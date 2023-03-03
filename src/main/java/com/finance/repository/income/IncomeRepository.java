@@ -1,7 +1,10 @@
-package com.finance.repository;
+package com.finance.repository.income;
 
-import com.finance.dto.Income;
+import com.finance.dao.Income;
+import com.finance.dto.IncomeDto;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -9,9 +12,4 @@ import java.util.Optional;
  */
 public interface IncomeRepository extends JpaRepository<Income, Long> {
 
-    void deleteIncomeById(Long id);
-
-    Optional<Income> findIncomeById(Long id);
-
-    //TODO: add more. For example find by income category.
 }

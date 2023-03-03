@@ -1,4 +1,4 @@
-package com.finance.dto;
+package com.finance.dao;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
