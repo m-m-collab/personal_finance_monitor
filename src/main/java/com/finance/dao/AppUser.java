@@ -1,4 +1,4 @@
-package com.finance.dto;
+package com.finance.dao;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
