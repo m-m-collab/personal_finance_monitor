@@ -3,6 +3,8 @@ package com.finance.service.income;
 import com.finance.dao.Income;
 import com.finance.dto.IncomeDto;
 import com.finance.repository.income.IncomeRepository;
+import com.finance.service.income.mapper.IncomeMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class IncomeServiceImp implements IncomeService {
     private final IncomeRepository incomeRepository;
     private final IncomeMapper incomeMapper;
 
+    @Autowired
     public IncomeServiceImp(IncomeRepository incomeRepository, IncomeMapper incomeMapper) {
         this.incomeRepository = incomeRepository;
         this.incomeMapper = incomeMapper;
@@ -39,7 +42,7 @@ public class IncomeServiceImp implements IncomeService {
     public void createIncome(IncomeDto incomeDto) {
         Income income = new Income
                 .IncomeBuilder()
-                .withIncome(incomeDto.getIncome())
+                .withIncome(incomeDto.getIncomeType())
                 .withAmount(incomeDto.getAmount())
                 .withAppUser(incomeDto.getAppUser())
                 .withDateTime(incomeDto.getDateTime())
