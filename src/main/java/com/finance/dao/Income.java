@@ -31,7 +31,7 @@ public class Income {
     private LocalDateTime dateTime;
 
     @Enumerated(EnumType.STRING)
-    private Income income;
+    private IncomeType incomeType;
 
     @Column(name = "Amount", nullable = false)
     private BigDecimal amount;
@@ -42,7 +42,7 @@ public class Income {
     public static class IncomeBuilder {
         private AppUser appUser;
         private LocalDateTime dateTime;
-        private Income income;
+        private IncomeType incomeType;
         private BigDecimal amount;
 
         public IncomeBuilder withAppUser(AppUser appUser){
@@ -55,8 +55,8 @@ public class Income {
             return  this;
         }
 
-        public IncomeBuilder withIncome(Income income){
-            this.income = income;
+        public IncomeBuilder withIncome(IncomeType incomeType){
+            this.incomeType = incomeType;
             return this;
         }
 
@@ -73,7 +73,7 @@ public class Income {
     private Income(IncomeBuilder incomeBuilder){
         this.appUser = incomeBuilder.appUser;
         this.dateTime = incomeBuilder.dateTime;
-        this.income = incomeBuilder.income;
+        this.incomeType = incomeBuilder.incomeType;
         this.amount = incomeBuilder.amount;
     }
 
@@ -82,7 +82,7 @@ public class Income {
         return "Income{" +
                 "id=" + id +
                 ", dateTime=" + dateTime +
-                ", income=" + income +
+                ", income=" + incomeType +
                 ", amount=" + amount +
                 '}';
     }

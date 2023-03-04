@@ -28,7 +28,7 @@ public class Expense {
     private LocalDateTime dateTime;
 
     @Enumerated(EnumType.STRING)
-    private Expense expense;
+    private ExpenseType expensetype;
 
     @Column(name = "Amount", nullable = false)
     private BigDecimal amount;
@@ -38,7 +38,7 @@ public class Expense {
         return "Expense{" +
                 "id=" + id +
                 ", dateTime=" + dateTime +
-                ", expense=" + expense +
+                ", expense=" + expensetype +
                 ", amount=" + amount +
                 '}';
     }
