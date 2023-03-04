@@ -1,7 +1,6 @@
 # Personal Finance Monitor
 
-This project is a personal financial monitor developed using Spring Framework. It provides various financial calculation functions including loan repayment calculation, compound interest calculation, and investment returns calculation.
-
+:moneybag: Easy to use, always available personal finance monitor. Use it to collect all your income and expenses then look at an affordable analytics dashboard to catch your financial leaks. :money_with_wings:
 # Technologies Used
 - Java
 - Spring Framework
