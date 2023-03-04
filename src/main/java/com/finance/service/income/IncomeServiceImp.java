@@ -1,10 +1,10 @@
 package com.finance.service.income;
 
+import com.finance.dao.Income;
 import com.finance.dto.IncomeDto;
 import com.finance.repository.income.IncomeRepository;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+import java.util.List;
 
 
 /**
@@ -21,31 +21,40 @@ public class IncomeServiceImp implements IncomeService {
         this.incomeMapper = incomeMapper;
     }
 
-    public Flux<IncomeDto> getAllIncomes() {
-        return Flux.fromIterable(incomeRepository.findAll())
-                .map(incomeMapper::toDto);
+    public List<IncomeDto> getAllIncomes() {
+        return incomeRepository.findAll()
+                .stream()
+                .map(incomeMapper::toDto)
+                .toList();
         //Maybe we should think to return a list in service,
         // and return mono and flux objects in service? To discussion.
     }
 
     @Override
-    public Mono<IncomeDto> findIncomeById(Long id) {
+    public IncomeDto findIncomeById(Long id) {
         return null; //TODO
     }
 
     @Override
-    public Mono<IncomeDto> createIncome(IncomeDto incomeDto) {
+    public void createIncome(IncomeDto incomeDto) {
+        Income income = new Income
+                .IncomeBuilder()
+                .withIncome(incomeDto.getIncome())
+                .withAmount(incomeDto.getAmount())
+                .withAppUser(incomeDto.getAppUser())
+                .withDateTime(incomeDto.getDateTime())
+                .build();
+        incomeRepository.save(income);
+    }
+
+    @Override
+    public IncomeDto updateIncomeById(Long id, IncomeDto incomeDto) {
         return null; //TODO
     }
 
     @Override
-    public Mono<IncomeDto> updateIncomeById(Long id, IncomeDto incomeDto) {
-        return null; //TODO
+    public void deleteIncomeById(Long id) {
     }
 
-    @Override
-    public Mono<Void> deleteIncomeById(Long id) {
-        return null; //TODO
-    }
 
 }

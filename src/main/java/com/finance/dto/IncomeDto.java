@@ -2,9 +2,8 @@ package com.finance.dto;
 
 import com.finance.dao.AppUser;
 import com.finance.dao.Income;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -14,6 +13,8 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper =false)
+@ToString(callSuper = false)
 public class IncomeDto {
 
     private Long id;
