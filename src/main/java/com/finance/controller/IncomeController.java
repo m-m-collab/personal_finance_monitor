@@ -3,7 +3,9 @@ package com.finance.controller;
 
 import com.finance.dto.IncomeDto;
 import com.finance.service.income.IncomeService;
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,6 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/incomes")
 @ResponseStatus
-@Api(value = "Incomes")
 public class IncomeController {
 
     private final IncomeService incomeService;
@@ -30,17 +31,17 @@ public class IncomeController {
      * Create a new Income.
      */
     @PostMapping("")
-    @ApiOperation(value = "createIncome", notes = "Crates a new income")
+    @Operation(description = "createIncome")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "New income successfully created"),
-            @ApiResponse(code = 400, message = "Bad request, adjust before retrying"),
-            @ApiResponse(code = 406, message = "Rejected, missing required fields"),
-            @ApiResponse(code = 409, message = "Income with the same name already exists"),
-            @ApiResponse(code = 500, message = "Internal Server Error")
+            @ApiResponse(responseCode = "201", description = "New income successfully created"),
+            @ApiResponse(responseCode = "400", description = "Bad request, adjust before retrying"),
+            @ApiResponse(responseCode = "406", description = "Rejected, missing required fields"),
+            @ApiResponse(responseCode = "409", description = "Income with the same name already exists"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
     public ResponseEntity<Mono<?>> createIncome(
-            @ApiParam("Income specification") @RequestBody IncomeDto incomeDto
+            @RequestBody(required = true) IncomeDto incomeDto
             ){
         if (incomeDto == null){
             return new ResponseEntity<>(Mono.empty(), HttpStatus.NOT_ACCEPTABLE);

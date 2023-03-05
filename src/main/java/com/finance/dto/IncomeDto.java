@@ -1,8 +1,8 @@
 package com.finance.dto;
 
 import com.finance.dao.AppUser;
-import com.finance.dao.Income;
 import com.finance.dao.IncomeType;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -18,14 +18,16 @@ import java.time.LocalDateTime;
 @ToString(callSuper = false)
 public class IncomeDto {
 
+    @Schema(description = "ID")
     private Long id;
 
+    @Schema(description = "AppUser")
     private AppUser appUser;
-
+    @Schema(description = "LocalDateTime")
     private LocalDateTime dateTime;
-
+    @Schema(description = "LocalDateTime")
     private IncomeType incomeType;
-
+    @Schema(description = "LocalDateTime")
     private BigDecimal amount;
 
     /**

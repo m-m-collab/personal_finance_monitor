@@ -22,7 +22,7 @@ mvn clean install
 ```bash
 mvn spring-boot:run
 ```
-4. Access the Swagger UI at http://localhost:8080/swagger-ui.html to interact with the API endpoints.
+4. Access the Swagger UI at http://localhost:8086/swagger-ui/index.html to interact with the API endpoints.
 
 # Swagger
 Swagger has been integrated into this project to provide an interactive documentation for the API. You can access the Swagger UI at http://localhost:8080/swagger-ui.html.
