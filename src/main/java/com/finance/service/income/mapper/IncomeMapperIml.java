@@ -1,5 +1,6 @@
 package com.finance.service.income.mapper;
 
+import com.finance.dao.AppUser;
 import com.finance.dao.Income;
 import com.finance.dto.IncomeDto;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,16 @@ public class IncomeMapperIml implements IncomeMapper {
                     .withAmount(income.getAmount())
                         .withIncomeType(income.getIncomeType())
                             .withLocalDateTime(income.getDateTime())
-                                .withAppUser(income.getAppUser());
+                                .withAppUser(income.getAppUser().getId());
     }
 
     @Override
-    public Income toEntity(IncomeDto incomeDto) {
-        return null;
+    public Income toEntity(IncomeDto incomeDto, AppUser appUser) {
+        Income income = new Income();
+        income.setAppUser(appUser);
+        income.setDateTime(incomeDto.getDateTime());
+        income.setIncomeType(incomeDto.getIncomeType());
+        income.setAmount(incomeDto.getAmount());
+        return income;
     }
 }

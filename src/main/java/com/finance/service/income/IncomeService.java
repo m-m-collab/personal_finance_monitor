@@ -1,23 +1,21 @@
 package com.finance.service.income;
 
 import com.finance.dto.IncomeDto;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
-
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Income service interface.
  */
 public interface IncomeService {
 
-    Flux<IncomeDto> getAllIncomes();
+    List<IncomeDto> getAllIncomes();
 
-    Mono<IncomeDto> findIncomeById(Long id);
+    Optional<IncomeDto> findIncomeById(Long id);
 
-    Mono<IncomeDto> createIncome(IncomeDto incomeDto);
+    IncomeDto createIncome(IncomeDto incomeDto, Long userId);
 
-    Mono<IncomeDto> updateIncomeById(Long id, IncomeDto incomeDto);
+    IncomeDto updateIncomeById(Long id, IncomeDto incomeDto);
 
-    Mono<Void> deleteIncomeById(Long id);
+    void deleteIncomeById(Long id);
 }

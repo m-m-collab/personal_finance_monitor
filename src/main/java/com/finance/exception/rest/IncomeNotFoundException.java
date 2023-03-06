@@ -1,4 +1,4 @@
-package com.finance.exception;
+package com.finance.exception.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Income Not Found Exception for REST API.
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class IncomeNotFoundException  extends RuntimeException {
+public class IncomeNotFoundException extends RuntimeException {
 
         public IncomeNotFoundException() {
-            this("EntityRepresentationModel not found");
+            this("Entity Representation Model not found");
         }
 
         public IncomeNotFoundException(String message) {
-            this(message, (Throwable)null);
+            this(message, (Throwable) null);
         }
 
         public IncomeNotFoundException(String message, Throwable cause) {

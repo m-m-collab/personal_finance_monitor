@@ -1,6 +1,5 @@
 package com.finance.dto;
 
-import com.finance.dao.AppUser;
 import com.finance.dao.IncomeType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -19,8 +18,9 @@ import java.time.LocalDateTime;
 public class IncomeDto {
 
 
-    @Schema(description = "AppUser")
-    private AppUser appUser;
+    @Schema(description = "AppUserID")
+    private Long userId;
+
     @Schema(description = "LocalDateTime")
     private LocalDateTime dateTime;
     @Schema(description = "LocalDateTime")
@@ -32,8 +32,8 @@ public class IncomeDto {
      * Fluent style API fashion incomeDto builder.
      */
 
-    public IncomeDto withAppUser(AppUser appUser){
-        this.appUser = appUser;
+    public IncomeDto withAppUser(Long userId){
+        this.userId = userId;
         return this;
     }
 
