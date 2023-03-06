@@ -1,13 +1,17 @@
 package com.finance.dao;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * Entity model of the AppUser table.
  */
 @EqualsAndHashCode
 @Entity
+@Data
+@NoArgsConstructor
 @Table(name = "AppUser")
 public class AppUser {
 
@@ -33,6 +37,7 @@ public class AppUser {
 
     @Column(name = "Enabled", nullable = false)
     private Boolean enabled;
+    ;
 
     public AppUser(Long id, String username, String email, String password, AppUserType appUserRole, Boolean locked, Boolean enabled) {
         this.id = id;

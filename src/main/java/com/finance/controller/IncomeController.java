@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -27,10 +28,15 @@ public class IncomeController {
         this.incomeService = incomeService;
     }
 
+    @GetMapping
+    public Flux<IncomeDto> getAllIncomes() {
+        return Flux.fromIterable(incomeService.getAllIncomes());
+    }
+
     /**
      * Create a new Income.
      */
-    @PostMapping("")
+    @PostMapping("/{userId}")
     @Operation(description = "createIncome")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiResponses(value = {
@@ -40,15 +46,13 @@ public class IncomeController {
             @ApiResponse(responseCode = "409", description = "Income with the same name already exists"),
             @ApiResponse(responseCode = "500", description = "Internal Server Error")
     })
-    public ResponseEntity<Mono<?>> createIncome(
-            @RequestBody(required = true) IncomeDto incomeDto
+    public Mono<ResponseEntity<IncomeDto>> createIncome(
+            @RequestBody(required = true) IncomeDto incomeDto,
+            @PathVariable Long userId
             ){
-        if (incomeDto == null){
-            return new ResponseEntity<>(Mono.empty(), HttpStatus.NOT_ACCEPTABLE);
-        }
-        incomeService.createIncome(incomeDto);
+        IncomeDto savedIncomeDto = incomeService.createIncome(incomeDto, userId);
 
-        return new ResponseEntity<>(Mono.empty(), HttpStatus.CREATED);
+        return Mono.just(ResponseEntity.status(HttpStatus.CREATED).body(savedIncomeDto));
     }
 
 }

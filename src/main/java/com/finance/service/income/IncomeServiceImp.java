@@ -1,16 +1,18 @@
 package com.finance.service.income;
 
+import com.finance.dao.AppUser;
 import com.finance.dao.Income;
 import com.finance.dto.IncomeDto;
-import com.finance.exception.IncomeNotFoundException;
+import com.finance.exception.rest.UserNotFoundException;
+import com.finance.repository.income.AppUserRepository;
 import com.finance.repository.income.IncomeRepository;
 import com.finance.service.income.mapper.IncomeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 /**
@@ -20,66 +22,68 @@ import java.util.List;
 public class IncomeServiceImp implements IncomeService {
 
     private final IncomeRepository incomeRepository;
+    private final AppUserRepository appUserRepository;
     private final IncomeMapper incomeMapper;
 
     @Autowired
-    public IncomeServiceImp(IncomeRepository incomeRepository, IncomeMapper incomeMapper) {
+    public IncomeServiceImp(IncomeRepository incomeRepository,
+                            AppUserRepository appUserRepository,
+                            IncomeMapper incomeMapper) {
         this.incomeRepository = incomeRepository;
+        this.appUserRepository = appUserRepository;
         this.incomeMapper = incomeMapper;
     }
 
     @Override
-    public Flux<IncomeDto> getAllIncomes() {
+    public List<IncomeDto> getAllIncomes() {
         return incomeRepository.findAll()
-                .map(incomeMapper::toDto);
+                .stream()
+                .map(incomeMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Mono<IncomeDto> findIncomeById(Long id) {
+    public Optional<IncomeDto> findIncomeById(Long id) {
         return incomeRepository.findById(id)
-                .switchIfEmpty(Mono.error(new IncomeNotFoundException("Income not found id "+id)))
                 .map(incomeMapper::toDto);
+
     }
 
     @Override
-    public Mono<IncomeDto> createIncome(IncomeDto incomeDto) {
-        Income income = new Income
-                .IncomeBuilder()
-                .withIncome(incomeDto.getIncomeType())
-                .withAmount(incomeDto.getAmount())
-                .withAppUser(incomeDto.getAppUser())
-                .withDateTime(incomeDto.getDateTime())
-                .build();
-
-        return incomeRepository.save(income)
-                .map(
-                        savedIncome -> new IncomeDto()
-                        .withIncomeType(savedIncome.getIncomeType())
-                        .withLocalDateTime(savedIncome.getDateTime())
-                        .withAmount(savedIncome.getAmount())
-                        .withAppUser(savedIncome.getAppUser())
-                );
+    public IncomeDto createIncome(IncomeDto incomeDto, Long userId) {
+        AppUser appUser = appUserRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User with id " + userId + " not found"));
+        Income income = incomeMapper.toEntity(incomeDto, appUser);
+        Income savedIncome = incomeRepository.save(income);
+        return incomeMapper.toDto(savedIncome);
     }
 
     @Override
-    public Mono<IncomeDto> updateIncomeById(Long id, IncomeDto incomeDto) {
-        return incomeRepository.findById(id)
-                .flatMap(existingIncome ->
-                        {
-                        existingIncome.setIncomeType(incomeDto.getIncomeType());
-                        existingIncome.setAmount(incomeDto.getAmount());
-                        existingIncome.setAppUser(incomeDto.getAppUser());
-                        existingIncome.setDateTime(incomeDto.getDateTime());
-                    return  incomeRepository.save(existingIncome).thenReturn(existingIncome);
-                }
-                )
-                .map(incomeMapper::toDto);
+    public IncomeDto updateIncomeById(Long id, IncomeDto incomeDto) {
+//        Optional<Income> incomeOptional = incomeRepository.findById(id);
+//        if(incomeOptional.isPresent()){
+//            Income existingIncome = incomeOptional.get();
+//            existingIncome.setIncomeType(incomeDto.getIncomeType());
+//            existingIncome.setAmount(incomeDto.getAmount());
+//            existingIncome.setAppUser(incomeDto.getAppUser());
+//            existingIncome.setDateTime(incomeDto.getDateTime());
+//
+//            Income updatedIncome = incomeRepository.save(existingIncome);
+//
+//            return new IncomeDto()
+//                    .withIncomeType(updatedIncome.getIncomeType())
+//                    .withLocalDateTime(updatedIncome.getDateTime())
+//                    .withAmount(updatedIncome.getAmount())
+//                    .withAppUser(updatedIncome.getAppUser());
+//        } else {
+//            throw new IncomeNotFoundException("Income not found with id: " + id);
+//        }
+        return null;
     }
 
     @Override
-    public Mono<Void> deleteIncomeById(Long id) {
-        return incomeRepository.deleteById(id);
+    public void deleteIncomeById(Long id) {
+        incomeRepository.deleteById(id);
     }
-
 
 }
