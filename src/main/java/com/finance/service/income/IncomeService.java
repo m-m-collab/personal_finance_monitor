@@ -1,6 +1,7 @@
 package com.finance.service.income;
 
 import com.finance.dto.IncomeDto;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -10,13 +11,13 @@ import java.util.List;
  */
 public interface IncomeService {
 
-    List<IncomeDto> getAllIncomes();
+    Flux<IncomeDto> getAllIncomes();
 
-    IncomeDto findIncomeById(Long id);
+    Mono<IncomeDto> findIncomeById(Long id);
 
-    void createIncome(IncomeDto incomeDto);
+    Mono<IncomeDto> createIncome(IncomeDto incomeDto);
 
-    IncomeDto updateIncomeById(Long id, IncomeDto incomeDto);
+    Mono<IncomeDto> updateIncomeById(Long id, IncomeDto incomeDto);
 
-    void deleteIncomeById(Long id);
+    Mono<Void> deleteIncomeById(Long id);
 }
