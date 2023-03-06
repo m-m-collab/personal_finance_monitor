@@ -18,8 +18,6 @@ import java.time.LocalDateTime;
 @ToString(callSuper = false)
 public class IncomeDto {
 
-    @Schema(description = "ID")
-    private Long id;
 
     @Schema(description = "AppUser")
     private AppUser appUser;

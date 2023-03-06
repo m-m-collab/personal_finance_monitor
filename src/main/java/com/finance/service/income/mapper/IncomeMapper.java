@@ -2,7 +2,6 @@ package com.finance.service.income.mapper;
 
 import com.finance.dao.Income;
 import com.finance.dto.IncomeDto;
-import org.springframework.stereotype.Service;
 
 /**
  * Income mapper DTO<->DAO service interface.
