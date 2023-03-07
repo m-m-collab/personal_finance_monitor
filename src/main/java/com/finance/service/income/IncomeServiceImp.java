@@ -4,6 +4,7 @@ import com.finance.dao.AppUser;
 import com.finance.dao.Income;
 import com.finance.dto.IncomeDto;
 import com.finance.exception.rest.UserNotFoundException;
+import com.finance.observer.income.IncomePublisher;
 import com.finance.repository.income.AppUserRepository;
 import com.finance.repository.income.IncomeRepository;
 import com.finance.service.income.mapper.IncomeMapper;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Flow;
 import java.util.stream.Collectors;
 
 
@@ -19,11 +22,14 @@ import java.util.stream.Collectors;
  * Income service.
  */
 @Service
-public class IncomeServiceImp implements IncomeService {
+public class IncomeServiceImp implements IncomeService, IncomePublisher {
 
     private final IncomeRepository incomeRepository;
     private final AppUserRepository appUserRepository;
     private final IncomeMapper incomeMapper;
+
+    private final List<Flow.Subscriber<? super IncomeDto>> subscribers = new CopyOnWriteArrayList<>();
+
 
     @Autowired
     public IncomeServiceImp(IncomeRepository incomeRepository,
@@ -86,4 +92,12 @@ public class IncomeServiceImp implements IncomeService {
         incomeRepository.deleteById(id);
     }
 
+    @Override
+    public void subscribe(Flow.Subscriber<? super IncomeDto> subscriber) {
+        subscribers.add(subscriber);
+    }
+
+    public void publish(IncomeDto incomeDto) {
+        subscribers.forEach(s -> s.onNext(incomeDto));
+    }
 }
