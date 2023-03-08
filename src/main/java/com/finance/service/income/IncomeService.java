@@ -11,7 +11,7 @@ public interface IncomeService {
 
     List<IncomeDto> getAllIncomes();
 
-    Optional<IncomeDto> findIncomeById(Long id);
+    IncomeDto findIncomeById(Long id);
 
     IncomeDto createIncome(IncomeDto incomeDto, Long userId);
 
