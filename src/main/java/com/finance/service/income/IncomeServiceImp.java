@@ -44,9 +44,10 @@ public class IncomeServiceImp implements IncomeService {
     }
 
     @Override
-    public Optional<IncomeDto> findIncomeById(Long id) {
+    public IncomeDto findIncomeById(Long id) {
         return incomeRepository.findById(id)
-                .map(incomeMapper::toDto);
+                .map(incomeMapper::toDto)
+                .orElseThrow(() -> new IncomeNotFoundException("Income with id " + id + " not found"));
 
     }
 
