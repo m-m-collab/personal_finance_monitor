@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @ToString(callSuper = false)
 public class IncomeDto {
 
-
     @Schema(description = "AppUserID")
     private Long userId;
 

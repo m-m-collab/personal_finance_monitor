@@ -23,7 +23,7 @@ public class IncomeMapperIml implements IncomeMapper {
     }
 
     @Override
-    public Income toEntity(IncomeDto incomeDto, AppUser appUser) {
+    public Income toDao(IncomeDto incomeDto, AppUser appUser) {
         Income income = new Income();
         income.setAppUser(appUser);
         income.setDateTime(incomeDto.getDateTime());

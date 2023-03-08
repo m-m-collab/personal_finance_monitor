@@ -10,5 +10,5 @@ import com.finance.dto.IncomeDto;
 public interface IncomeMapper {
     IncomeDto toDto(Income income);
 
-    Income toEntity(IncomeDto incomeDto, AppUser appUser);
+    Income toDao(IncomeDto incomeDto, AppUser appUser);
 }
