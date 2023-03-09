@@ -1,2 +1,4 @@
-package com.finance.service.appuser;public interface AppUserService {
+package com.finance.service.appuser;
+
+public interface AppUserService {
 }

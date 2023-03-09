@@ -1,4 +1,4 @@
-package com.finance.repository.income;
+package com.finance.repository.appuser;
 
 import com.finance.dao.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;

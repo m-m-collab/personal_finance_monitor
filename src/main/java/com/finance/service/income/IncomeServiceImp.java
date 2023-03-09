@@ -5,14 +5,13 @@ import com.finance.dao.Income;
 import com.finance.dto.IncomeDto;
 import com.finance.exception.rest.IncomeNotFoundException;
 import com.finance.exception.rest.UserNotFoundException;
-import com.finance.repository.income.AppUserRepository;
+import com.finance.repository.appuser.AppUserRepository;
 import com.finance.repository.income.IncomeRepository;
 import com.finance.service.income.mapper.IncomeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
