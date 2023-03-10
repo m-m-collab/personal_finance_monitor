@@ -30,7 +30,6 @@ public class IncomeDto {
     /**
      * Fluent style API fashion incomeDto builder.
      */
-
     public IncomeDto withAppUser(Long userId){
         this.userId = userId;
         return this;

@@ -1,4 +1,4 @@
-package com.finance.util;
+package com.finance.util.file;
 
 import com.finance.exception.utils.FileUtilsException;
 

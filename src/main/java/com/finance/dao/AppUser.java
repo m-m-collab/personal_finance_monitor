@@ -49,60 +49,42 @@ public class AppUser {
         this.enabled = enabled;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public AppUserType getAppUserRole() {
-        return appUserRole;
-    }
-
-    public Boolean getLocked() {
-        return locked;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setId(Long id) {
+    /**
+     * Fluent style API fashion appUser builder.
+     */
+    public AppUser withId(Long id){
         this.id = id;
+        return this;
     }
 
-    public void setUsername(String username) {
+    public AppUser withUsername(String username){
         this.username = username;
+        return this;
     }
 
-    public void setEmail(String email) {
+    public AppUser withEmail(String email){
         this.email = email;
+        return this;
     }
 
-    public void setPassword(String password) {
+    public AppUser withPassword(String password){
         this.password = password;
+        return this;
     }
 
-    public void setAppUserRole(AppUserType appUserRole) {
+    public AppUser withAppUserRole(AppUserType appUserRole){
         this.appUserRole = appUserRole;
+        return this;
     }
 
-    public void setLocked(Boolean locked) {
+    public AppUser isLocked(Boolean locked){
         this.locked = locked;
+        return this;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public AppUser isEnabled(Boolean enabled){
         this.enabled = enabled;
+        return this;
     }
 
     @Override
